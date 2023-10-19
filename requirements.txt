@@ -1,0 +1,13 @@
+nltk==3.8.1
+numpy==1.24.3
+openai==0.27.8
+Pillow==10.0.1
+pytrec_eval==0.5
+PyYAML==6.0.1
+Requests==2.31.0
+salesforce_lavis==1.0.1
+toml==0.10.2
+torch==2.0.1
+tqdm==4.65.0
+transformers==4.21.0
+gdown==4.0.2

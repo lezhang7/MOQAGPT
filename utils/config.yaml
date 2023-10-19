@@ -1,0 +1,85 @@
+DATASET_DIR: /home/mila/l/le.zhang/scratch/datasets
+PROJECT_DIR: /home/mila/l/le.zhang/scratch/MOQA
+
+DATASET_CONFIG:
+  MMCOQA:
+    image: MMCoQA/multimodalqa_final_dataset_pipeline_camera_ready_MMQA_images.jsonl
+    image_dir: MMCoQA/final_dataset_images/
+    text: MMCoQA/multimodalqa_final_dataset_pipeline_camera_ready_MMQA_texts.jsonl
+    qrel: MMCoQA/qrels.txt
+    table: MMCoQA/multimodalqa_final_dataset_pipeline_camera_ready_MMQA_tables.jsonl
+    test: MMCoQA/MMCoQA_test.txt
+    train: MMCoQA/MMCoQA_train.txt
+  MMQA:
+    image: MMQA/MMQA_images.jsonl
+    image_dir: MMQA/final_dataset_images/
+    text: MMQA/MMQA_texts.jsonl
+    table: MMQA/MMQA_tables.jsonl
+    dev: MMQA/MMQA_dev.jsonl
+    test: MMQA/MMQA_test.jsonl
+    train: MMQA/MMQA_train.jsonl
+
+
+FEATURES_CONFIG:
+  MMCOQA:
+    image:
+      clip:
+        QuestionEmbedding: stored_features/mmcoqa/image/clip_features/QuestionEmbedding.pt
+        ReferenceEmbedding: stored_features/mmcoqa/image/clip_features/ReferenceEmbedding.pt
+    table:
+      ada:
+        QuestionEmbedding: stored_features/mmcoqa/table/ada_features/QuestionEmbedding.pt
+        ReferenceEmbedding: stored_features/mmcoqa/table/ada_features/ReferenceEmbedding.pt
+    text:
+      ance:
+        QuestionEmbedding: stored_features/mmcoqa/text/ance_features/QuestionEmbedding.pt
+        ReferenceEmbedding: stored_features/mmcoqa/text/ance_features/ReferenceEmbedding.pt
+  MMQA:
+    image:
+      clip:
+        QuestionEmbedding: stored_features/mmqa/image/clip_features/QuestionEmbedding.pt
+        ReferenceEmbedding: stored_features/mmqa/image/clip_features/ReferenceEmbedding.pt
+    table:
+      ada:
+        QuestionEmbedding: stored_features/mmqa/table/ada_features/QuestionEmbedding.pt
+        ReferenceEmbedding: stored_features/mmqa/table/ada_features/ReferenceEmbedding.pt
+    text:
+      ance:
+        QuestionEmbedding: stored_features/mmqa/text/ance_features/QuestionEmbedding.pt
+        ReferenceEmbedding: stored_features/mmqa/text/ance_features/ReferenceEmbedding.pt
+MODALITIES:
+- image
+- text
+- table
+
+MODEL_CONFIG:
+  image:
+  - clip
+  - blip2
+  text:
+  - bm2
+  - ance
+  table:
+  - ada
+
+
+
+QA_MODELS:
+  image:
+  - blip2
+  - instructblip
+  table:
+  - chatgpt
+  text:
+  - gpt4
+  - chatgpt
+  - llamma
+  - vicuna
+  
+FEATURE_MODELS:
+  image:
+  - clip
+  table:
+  - ada
+  text:
+  - ance
