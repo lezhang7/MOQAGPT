@@ -1,5 +1,5 @@
-DATASET_DIR: /home/mila/l/le.zhang/scratch/datasets
-PROJECT_DIR: /home/mila/l/le.zhang/scratch/MOQA
+DATASET_DIR: ~/scratch/datasets
+PROJECT_DIR: ~/scratch/MOQA
 
 DATASET_CONFIG:
   MMCOQA:

@@ -80,11 +80,11 @@ def save_text_features(model, passages_file_path, pid2feature_path, feature_idx_
 
 
 if __name__ == '__main__':
-    pretrained_encoder_path = "/home/mila/l/le.zhang/scratch/hub/ad-hoc-ance-msmarco"
+    pretrained_encoder_path = "~/scratch/hub/ad-hoc-ance-msmarco"
     #passages_file_path = "datasets/MMCoQA/bm25_collection/MMCoQA_text_collection.jsonl"
-    os.makedirs("/home/mila/l/le.zhang/scratch/MOQA/stored_features/mmqa/text/ance_features/",exist_ok=True)
-    passages_file_path = "/home/mila/l/le.zhang/scratch/datasets/MMQA/MMQA_texts.jsonl"
-    pid2feature_path = "/home/mila/l/le.zhang/scratch/MOQA/stored_features/mmqa/text/ance_features/ReferenceEmbedding.pt"
+    os.makedirs("~/scratch/MOQA/stored_features/mmqa/text/ance_features/",exist_ok=True)
+    passages_file_path = "~/scratch/datasets/MMQA/MMQA_texts.jsonl"
+    pid2feature_path = "~/scratch/MOQA/stored_features/mmqa/text/ance_features/ReferenceEmbedding.pt"
     config = RobertaConfig.from_pretrained(pretrained_encoder_path)
     tokenizer = RobertaTokenizer.from_pretrained(pretrained_encoder_path, do_lower_case=True)
     model = ANCE.from_pretrained(pretrained_encoder_path, config=config)

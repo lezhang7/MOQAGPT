@@ -48,11 +48,11 @@ def save_text_features(model, query_file_path, qid2feature_path):
 
 
 if __name__ == '__main__':
-    pretrained_encoder_path = "/home/mila/l/le.zhang/scratch/hub/ad-hoc-ance-msmarco"
-    query_file_path = "/home/mila/l/le.zhang/scratch/datasets/MMQA/MMQA_dev.jsonl"
-    os.makedirs("/home/mila/l/le.zhang/scratch/MOQA/stored_features/mmqa/text/ance_features/",exist_ok=True)
-    qid2feature_path = "/home/mila/l/le.zhang/scratch/MOQA/stored_features/mmqa/text/ance_features/QuestionEmbedding.pt"
-    os.makedirs("/home/mila/l/le.zhang/scratch/MOQA/stored_features/mmqa/text/ance_features/",exist_ok=True)
+    pretrained_encoder_path = "~/scratch/hub/ad-hoc-ance-msmarco"
+    query_file_path = "~/scratch/datasets/MMQA/MMQA_dev.jsonl"
+    os.makedirs("~/scratch/MOQA/stored_features/mmqa/text/ance_features/",exist_ok=True)
+    qid2feature_path = "~/scratch/MOQA/stored_features/mmqa/text/ance_features/QuestionEmbedding.pt"
+    os.makedirs("~/scratch/MOQA/stored_features/mmqa/text/ance_features/",exist_ok=True)
     #qid2feature_path = "datasets/MMCoQA/qid2feature.pt"
     config = RobertaConfig.from_pretrained(pretrained_model_name_or_path=pretrained_encoder_path)
     tokenizer = RobertaTokenizer.from_pretrained(pretrained_encoder_path, do_lower_case=True)

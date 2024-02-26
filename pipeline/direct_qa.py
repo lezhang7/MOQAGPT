@@ -10,11 +10,11 @@ from tqdm import tqdm
 from torch.utils.data import DataLoader
 import argparse
 
-def direct_gpt_cot(path,model):
-    if os.path.exists(path):
-        gpt_results=load_json(path)
-    else:
-        gpt_results={}
+def direct_gpt_cot(args):
+    result_path = f"~/MOQA/output/{args.dataset}/direct_{args.direct_qa_model}.json"
+    openai.api_key =  os.getenv("OPENAI_API_KEY")
+    dataset=get_dataset(args.dataset)
+    gpt_results = load_json(result_path) if os.path.exists(result_path) else {}
     trial=0
     while len(gpt_results)!=len(dataset):
         try:
@@ -22,11 +22,10 @@ def direct_gpt_cot(path,model):
                 qid=example['qid']
                 if qid not in gpt_results:
                     question=example['golden_question_text']
-                    # answer=example['answer_text']
                     prompt1=f"{question}\n\n Let's think step by step."
                     
                     completion = openai.ChatCompletion.create(
-                        model=model,
+                        model=args.direct_qa_model,
                         messages=[
                             {"role": "user", "content": prompt1}
                         ]
@@ -42,14 +41,16 @@ def direct_gpt_cot(path,model):
                         )
                     answer=completion.choices[0].message["content"]
                     gpt_results[qid]={"question":question,"answer":example['answer_text'],"intermediate_reasoning":intermediate_reasoning,"gpt_answer":answer}
-                    read_then_save_json(path,gpt_results)
+                    read_then_save_json(result_path,gpt_results)
                 else: 
                     print(f"{qid} already answered",flush=True) 
         except Exception as e:
             trial+=1
             print(f"{e}, try again, #{trial}")
+
 def collate_fn(batch):
     return {'qid':[example['qid'] for example in batch],'golden_question_text':[example['golden_question_text'] for example in batch],'answer_text':[example['answer_text'] for example in batch]}
+
 def direct_llama(args):
     path=f"/home/mila/l/le.zhang/scratch/MOQA/output/{args.dataset}/direct_{args.direct_qa_model}.json"
     model=get_answer_model(args.direct_qa_model)
@@ -97,7 +98,7 @@ def parse_args():
 if __name__ == "__main__":
     args=parse_args()
     if 'gpt' in args.direct_qa_model:
-        direct_gpt_cot(f"/home/mila/l/le.zhang/scratch/MOQA/output/{args.dataset}/direct_{args.direct_qa_model}.json",args.direct_qa_model)
+        direct_gpt_cot(args)
     else:
         direct_llama(args)
    

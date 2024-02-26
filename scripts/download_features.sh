@@ -1,5 +1,5 @@
 #!/bin/bash
-
+pip install gdown
 # download the dataset
 PathToDataset="./datasets/MMCoQA/"
 mkdir -p $Path_To_Dataset
