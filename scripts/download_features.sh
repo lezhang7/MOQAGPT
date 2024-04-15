@@ -16,7 +16,8 @@ if [ "$(ls -A $PathToFeatures)" ]; then
     # Perform some action here
 else
     echo "downloading image features"
-    gdown 15RzG-KL7EwmerV2nTzJKSprODki_3rbf -O $PathToFeatures
+    gdown 1AzXCQWf4i_R0AaHBSzu5k1jxt5TZQVcc -O $PathToFeatures
+    gdown 1YbUAwOxGbjRslc-ky41w3f8gpSMw93dK -O $PathToFeatures
 fi
 
 
