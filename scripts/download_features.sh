@@ -1,5 +1,6 @@
 #!/bin/bash
 pip install gdown
+pip install --upgrade --no-cache-dir gdown # must update gdown to avoid bugs, thanks to https://github.com/wkentaro/gdown/issues/146
 # download the dataset
 PathToDataset="./datasets/MMCoQA/"
 mkdir -p $Path_To_Dataset
