@@ -94,14 +94,15 @@ retrieved_results,retrieved_reference=retriever.retrieve(question_ids)
 
 3. **Ensemble Answers and Reason the Final Response**
 
-   Combine answers from multiple sources (e.g., text, table, visual, and direct answers) using the `strategy.py` script. The final reasoning results will be saved as:
-   `output/$DATA/candidates/chatgpt/Iblip2_Tllama2chatTabllama2chat_direct_chatgpt.json`.
+   Combine answers from multiple sources (e.g., text, table, visual, and direct answers) using the `strategy.py` script.
 
    ```bash
    python pipeline/strategy.py --reasoner $LLM \
-           --textual_qa ~/scratch/MOQA/output/mmqa/Tllama2chatTabllama2chat.json \
-           --visual_qa ~/scratch/MOQA/output/mmqa/Iblip2.json \
-           --direct_qa ~/scratch/MOQA/output/mmqa/direct_chatgpt.json
+           --textual_qa output/$DATA/Tllama2chatTabllama2chat.json \
+           --visual_qa output/$DATA/Iblip2.json \
+           --direct_qa output/$DATA/direct_chatgpt.json
+   
+   #  The Reasoning_File_Result will be saved at: output/$DATA/candidates/chatgpt/Iblip2_Tllama2chatTabllama2chat_direct_chatgpt.json`.
    ```
 
 4. **Evaluate the Final Results**
@@ -109,7 +110,7 @@ retrieved_results,retrieved_reference=retriever.retrieve(question_ids)
    Run the `evaluation.py` script to evaluate the final ensemble results against the target file.
 
    ```bash
-   python pipeline/evaluation.py --target_file output/mmqa/candidates/chatgpt/Iblip2_Tllama2chatTabllama2chat_direct_chatgpt.json
+   python pipeline/evaluation.py --target_file $Reasoning_File_Result
    ```
 
 # Citation
