@@ -12,25 +12,27 @@ from model_zoo import get_embedding_model
 import argparse
 def parse_args():
     parser = argparse.ArgumentParser(description='extract image features')
-    parser.add_argument('--dataset', type=str, default="mmqa")
+    parser.add_argument('--dataset', type=str, default="mmcoqa")
     parser.add_argument('--model', type=str, default="ada")
+    parser.add_argument('--save_dir', type=str, default="stored_features/mmcoqa/table")
     parser.add_argument('--batch_size', type=int, default=2048)
     args = parser.parse_args()
     return args
 
 def extract_table_features(args):
-    save_path=os.path.join(config["PROJECT_DIR"],'stored_features',args.dataset,"table",args.model+'_features')
-    print(f"extract {args.dataset} image features by {args.model}, save to directory: {save_path}")
+    model_name = args.model.split('/')[-1] if '/' in args.model else args.model
+    save_dir=os.path.join(args.save_dir,model_name+'_features')
+    print(f"extract {args.dataset} image features by {args.model}, save to directory: {args.save_dir}")
     dataset=get_dataset(args.dataset)
     model=get_embedding_model(args.model)
     images_ref=list(dataset._images_dict.items())
     queries=[(x['qid'],x['question']) for x in dataset._query_list]
-    if not os.path.exists(os.path.join(save_path,"ReferenceEmbedding.pt")):
+    if not os.path.exists(os.path.join(save_dir,"ReferenceEmbedding.pt")):
         print(f"extract ReferenceEmbedding")
-        model.extract_text_features(dataset,images_ref,args.batch_size,save_path=os.path.join(save_path,"ReferenceEmbedding.pt"))
-    if not os.path.exists(os.path.join(save_path,"QuestionEmbedding.pt")):
+        model.extract_text_features(dataset,images_ref,args.batch_size,save_path=os.path.join(save_dir,"ReferenceEmbedding.pt"))
+    if not os.path.exists(os.path.join(save_dir,"QuestionEmbedding.pt")):
         print(f"extract QuestionEmbedding")
-        model.extract_text_features(queries,args.batch_size,save_path=os.path.join(save_path,"QuestionEmbedding.pt"))
+        model.extract_text_features(queries,args.batch_size,save_path=os.path.join(save_dir,"QuestionEmbedding.pt"))
 
 
 
