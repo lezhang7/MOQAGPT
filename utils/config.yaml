@@ -1,5 +1,5 @@
-DATASET_DIR: ~/scratch/datasets
-PROJECT_DIR: ~/scratch/MOQA
+DATASET_DIR: ./
+PROJECT_DIR: ./
 
 DATASET_CONFIG:
   MMCOQA:
@@ -31,9 +31,9 @@ FEATURES_CONFIG:
         QuestionEmbedding: stored_features/mmcoqa/table/ada_features/QuestionEmbedding.pt
         ReferenceEmbedding: stored_features/mmcoqa/table/ada_features/ReferenceEmbedding.pt
     text:
-      ance:
-        QuestionEmbedding: stored_features/mmcoqa/text/ance_features/QuestionEmbedding.pt
-        ReferenceEmbedding: stored_features/mmcoqa/text/ance_features/ReferenceEmbedding.pt
+      gte-base-en-v1.5:
+        QuestionEmbedding: stored_features/mmcoqa/text/gte-base-en-v1.5_features/QuestionEmbedding.pt
+        ReferenceEmbedding: stored_features/mmcoqa/text/gte-base-en-v1.5_features/ReferenceEmbedding.pt
   MMQA:
     image:
       clip:
@@ -44,42 +44,10 @@ FEATURES_CONFIG:
         QuestionEmbedding: stored_features/mmqa/table/ada_features/QuestionEmbedding.pt
         ReferenceEmbedding: stored_features/mmqa/table/ada_features/ReferenceEmbedding.pt
     text:
-      ance:
-        QuestionEmbedding: stored_features/mmqa/text/ance_features/QuestionEmbedding.pt
-        ReferenceEmbedding: stored_features/mmqa/text/ance_features/ReferenceEmbedding.pt
+      gte-base-en-v1.5:
+        QuestionEmbedding: stored_features/mmqa/text/gte-base-en-v1.5_features/QuestionEmbedding.pt
+        ReferenceEmbedding: stored_features/mmqa/text/gte-base-en-v1.5_features/ReferenceEmbedding.pt
 MODALITIES:
 - image
 - text
 - table
-
-MODEL_CONFIG:
-  image:
-  - clip
-  - blip2
-  text:
-  - bm2
-  - ance
-  table:
-  - ada
-
-
-
-QA_MODELS:
-  image:
-  - blip2
-  - instructblip
-  table:
-  - chatgpt
-  text:
-  - gpt4
-  - chatgpt
-  - llamma
-  - vicuna
-  
-FEATURE_MODELS:
-  image:
-  - clip
-  table:
-  - ada
-  text:
-  - ance

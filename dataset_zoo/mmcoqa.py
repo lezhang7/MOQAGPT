@@ -7,7 +7,6 @@ from typing import Dict, List, Optional, Union
 import numpy as np
 from PIL import Image
 from torch.utils.data import Dataset
-from tqdm import tqdm
 
 
 import logging
@@ -27,7 +26,7 @@ DATA_SPLIT=["train","test"]
 from utils.utils import *
 
 class MmcoqaDataset(Dataset):
-    dataset_name="MMCOQA"
+    dataset_name="MMCoQA"
     def __init__(self, datasplit:Optional[str] = "test",
                  history_num=0, prepend_history_questions=False, 
                  prepend_history_answers=False,

@@ -12,7 +12,7 @@ word_num_dict = {'zero': 0, 'one': 1, 'two': 2, 'three': 3, 'four': 4,
                      'ten': 10}
 
 def read_config():
-    with open('/home/mila/l/le.zhang/scratch/MOQA/utils/config.yaml', 'r') as file:
+    with open('utils/config.yaml', 'r') as file:
     # Parse the YAML content
         config = yaml.safe_load(file)
     return config

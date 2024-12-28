@@ -1,0 +1,6 @@
+*.txt
+*.jsonl
+*.ipynb
+
+MMCoQA/
+stored_features/

@@ -3,10 +3,8 @@ sys.path.insert(0, '..')
 import torch
 import numpy as np
 import json
-import linecache
 from tqdm import tqdm
 import os
-from PIL import Image
 from typing import List,Tuple,Dict,Union
 from utils.utils import *
 import pytrec_eval
@@ -180,6 +178,7 @@ class MultimodalRetriever():
         retrieved_results={}
         retrieved_reference={}
         assert isinstance(query_id,list), "query must be a list of string"
+
         for modality in list(self.query_features.keys()):
             query_features=torch.stack([self.query_features[modality][q] for q in query_id])
             ref=self.ref_features[modality]
@@ -192,7 +191,9 @@ class MultimodalRetriever():
             for modality in list(self.query_features.keys()):
                 retrieved_ids=list(retrieved_results[modality][q].keys())
                 retrieved_reference[q][modality]=[self.references[modality][rid] for rid in retrieved_ids]
+                
         return retrieved_results,retrieved_reference
+    
     def retrieve_from_given_list(self,dataset,query_id: List[str],topk=5):
         dataset_dict={x["qid"]:x for x in dataset}
         retrieved_reference={}

@@ -43,7 +43,6 @@ class CLIP_FOR_FEATURE_EXTRACTION():
         return image_dict
     def extract_text_features(self,queries:List[Tuple[str, str]],bs=2048,save_path=None):
         query_dict={}
-        bs=128
         for i in tqdm(range(len(queries)//bs+1)):
             queries_batch=queries[i*bs:(i+1)*bs]
             
