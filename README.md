@@ -2,10 +2,9 @@
 
 <div style="text-align: center; margin-top: 2rem;">
     <a href="https://aclanthology.org/2023.findings-emnlp.85/" target="_blank" style="margin: 0 10px;">
-        <img alt="arXiv" src="https://img.shields.io/badge/arXiv-SAIL-red?logo=arxiv" height="30" />
+        <img alt="arXiv" src="https://img.shields.io/badge/arXiv-MOQAGPT-red?logo=arxiv" height="30" />
     </a>
 </div>
-
 
 ***TL;DR***: We propose a framework leveraging Large Language Models to solve multi-modal open-domian question answerings (moqa) in a **zero-shot manner**, this is very different from previous supervised paradigm, instead we do not require any domain-specific annotations and modules, posing our framework as a general paradigm for moqa tasks. 
 
