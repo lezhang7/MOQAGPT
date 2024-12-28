@@ -15,49 +15,50 @@ The method framework tackles each modality seperately, and fuse results by Large
 
 ![](https://p.ipic.vip/kj67o3.png)
 
-## Preparation
+## Instructions
 
-```
+```bash
 pip install -r requirements.txt
 ```
-
-Please download evaluation dataset from their original codebase
 
 | Dataset      | Url                                                     |
 | ------------ | ------------------------------------------------------- |
 | MMCoQA       | https://github.com/liyongqi67/MMCoQA?tab=readme-ov-file |
 | MultiModalQA | https://github.com/allenai/multimodalqa                 |
 
-Change `DATASET_DIR`  point to directory of dataset
+Download Dataset and update `DATASET_DIR` in `utils/config.yaml`:
 
-### Extract features
+```yaml
+DATASET_DIR: /path/to/your/dataset
+```
 
-1. Download features at :hugs:https://huggingface.co/datasets/le723z/MOQAGPT_FEAT
+### Extract Features
 
-2. Generate features by customized models from huggingface transformers, such as `[Alibaba-NLP/gte-large-en-v1.5/Alibaba-NLP/gte-Qwen2-1.5B-instruct]`, please refer to 3 files in `extract/`.  
+1. Download features:hugs: https://huggingface.co/datasets/le723z/MOQAGPT_FEAT :hugs:
 
-   ``````bash
-   # extract table and queries emebddings using CLIP model --dataset mmcoqa
+2. Generate features using Hugging Face transformers models such as `[Alibaba-NLP/gte-large-en-v1.5, Alibaba-NLP/gte-Qwen2-1.5B-instruct]`. Refer to the scripts in the `extract/` directory:
+
+   ```bash
+   # Extract table and query embeddings using CLIP model
    python extract/extract_image_features.py 
    
-   # extract table and queries emebddings
+   # Extract table and query embeddings
    python extract/extract_table_features.py --dataset mmcoqa --model [Huggingface Model]
    
-   # extract passages and queries emebddings
-   python extract/extract_text_features.py --passages_file_path [] --query_file_path --model [Huggingface Model]
-   
-   ``````
+   # Extract passage and query embeddings
+   python extract/extract_text_features.py --passages_file_path [] --query_file_path [] --model [Huggingface Model]
+   ```
 
-:warning: Please make sure that `FEATURES_CONFIG` in `utils/config.yaml`  points to the correct path 
+:warning: Ensure `FEATURES_CONFIG` in `utils/config.yaml` is updated with the correct paths:
 
-``````yaml
+```yaml
 FEATURES_CONFIG:
   MMCOQA:
     image:
       clip:
         QuestionEmbedding: stored_features/mmcoqa/image/clip_features/QuestionEmbedding.pt
         ReferenceEmbedding: stored_features/mmcoqa/image/clip_features/ReferenceEmbedding.pt
-``````
+```
 
 ## Quick Retrieval Example
 
