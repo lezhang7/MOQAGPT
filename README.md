@@ -6,6 +6,7 @@
     </a>
 </div>
 
+
 ***TL;DR***: We propose a framework leveraging Large Language Models to solve multi-modal open-domian question answerings (moqa) in a **zero-shot manner**, this is very different from previous supervised paradigm, instead we do not require any domain-specific annotations and modules, posing our framework as a general paradigm for moqa tasks. 
 
 ![paradigmdifference](https://p.ipic.vip/hfn7wj.png)
@@ -19,6 +20,15 @@ The method framework tackles each modality seperately, and fuse results by Large
 ```
 pip install -r requirements.txt
 ```
+
+Please download evaluation dataset from their original codebase
+
+| Dataset      | Url                                                     |
+| ------------ | ------------------------------------------------------- |
+| MMCoQA       | https://github.com/liyongqi67/MMCoQA?tab=readme-ov-file |
+| MultiModalQA | https://github.com/allenai/multimodalqa                 |
+
+Change `DATASET_DIR`  point to directory of dataset
 
 ### Extract features
 
@@ -65,19 +75,26 @@ retrieved_results,retrieved_reference=retriever.retrieve(question_ids)
 
 ## Run MOQAGPT 
 
-1. Get `direct_QA` using LLM in `['openchat', 'gpt-4', 'llama2chat']` for DATA in `['mmqa', 'mmcoqa']`, the answers will be saved at for example  `MOQAGPT/output/$DATA/direct_chatgpt.json`
+1. **Generate `direct_QA` Answers Using LLMs**
 
-   ``````bash
-   python pipeline/direct_qa.py --dataset $DATA --direct_qa_model $LLM
-   ``````
+   Run the `direct_qa.py` script to generate answers directly using LLMs (`['openchat', 'gpt-4', 'llama2chat']`) on datasets (`['mmqa', 'mmcoqa']`). The output will be saved in the format:
+   `MOQAGPT/output/$DATA/direct_chatgpt.json`.
 
-2. Get answers for query of references from various modality. The answers will be saved at for example  `MOQAGPT/output/$DATA/direct_chatgpt.json`
+    ``````bash
+     python pipeline/direct_qa.py --dataset $DATA --direct_qa_model $LLM
+    ``````
+
+2. **Generate Multi-Modality Query Answers**
+   Use the answerer.py script to generate answers for queries referencing multiple modalities (e.g., text, table, or visual). The output will be saved in the same format: `MOQAGPT/output/$DATA/direct_chatgpt.json`
 
    ```bash
    python pipeline/answerer.py --dataset $DATA --text_qa $LLM --table_qa $LLM
    ```
 
-3. Ensemble multiple answers from various sources and reason the final answer for the query. The results will be saved at for example `output/mmqa/candidates/chatgpt/Iblip2_Tllama2chatTabllama2chat_direct_chatgpt.json`
+3. **Ensemble Answers and Reason the Final Response**
+
+   Combine answers from multiple sources (e.g., text, table, visual, and direct answers) using the `strategy.py` script. The final reasoning results will be saved as:
+   `output/$DATA/candidates/chatgpt/Iblip2_Tllama2chatTabllama2chat_direct_chatgpt.json`.
 
    ```bash
    python pipeline/strategy.py --reasoner $LLM \
@@ -86,7 +103,9 @@ retrieved_results,retrieved_reference=retriever.retrieve(question_ids)
            --direct_qa ~/scratch/MOQA/output/mmqa/direct_chatgpt.json
    ```
 
-4. Evaluation results
+4. **Evaluate the Final Results**
+
+   Run the `evaluation.py` script to evaluate the final ensemble results against the target file.
 
    ```bash
    python pipeline/evaluation.py --target_file output/mmqa/candidates/chatgpt/Iblip2_Tllama2chatTabllama2chat_direct_chatgpt.json
